@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -31,12 +32,15 @@ public class Project {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "project_id")
 	long id;
+	
 	@Size(min = 4,max = 7,message = "Identifier must be between 4 to 7 characters and Unique")
 	@Column(name = "project_identifier")
 	String projectIdentifier;
+	
 	@NotBlank(message = "Project Name cant be blank")
 	@Column(name = "project_name")
 	String projectName;
+	
 	@NotBlank(message = "Description cant be blank")
 	@Column(name = "project_description")
 	String description;
@@ -53,7 +57,9 @@ public class Project {
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	Date startDate;
 
-	@Column(name = "project_ended",columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	@Future(message = "End Date must be in future")
+	//@NotBlank(message = "Please Provide an Expected End Date")
+	@Column(name = "project_ended")
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	Date endDate;
 }

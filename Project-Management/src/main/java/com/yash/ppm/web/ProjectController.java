@@ -1,6 +1,8 @@
 package com.yash.ppm.web;
 
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +27,7 @@ import com.yash.ppm.service.ProjectService;
 //@Log4j
 @RestController
 @RequestMapping("/project")
+@CrossOrigin
 public class ProjectController {
 	
 	@Autowired
@@ -41,18 +45,18 @@ public class ProjectController {
 	@GetMapping("/{projectIdentifier}")
 	public ResponseEntity<?> getProjectByIdentifier(@PathVariable("projectIdentifier")String projectIdentifier){
 		Project p = projectService.getByIdentifier(projectIdentifier);
-		return new ResponseEntity<Project>(p,HttpStatus.FOUND);
+		return new ResponseEntity<Project>(p,HttpStatus.OK);
 	}
 	
 	@GetMapping("/all")
-	public ResponseEntity<?> getAllProjects(){
-		return new ResponseEntity<>(projectService.getAllProjects(),HttpStatus.FOUND);
+	public List<Project> getAllProjects(){
+		return projectService.getAllProjects();
 	}
 	
 	@DeleteMapping("/{projectIdentifier}")
 	public ResponseEntity<?> deleteProjet(@PathVariable("projectIdentifier")String projectIdentifier){
 		projectService.deleteByIdentifier(projectIdentifier);
-		return new ResponseEntity<>(projectIdentifier+" Deleted Successfully!",HttpStatus.FOUND);
+		return new ResponseEntity<>(projectIdentifier+" Deleted Successfully!",HttpStatus.OK);
 	}
 	
 	@PutMapping("/update")
