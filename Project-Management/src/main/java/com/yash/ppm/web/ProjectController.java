@@ -1,6 +1,7 @@
 package com.yash.ppm.web;
 
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -37,25 +38,25 @@ public class ProjectController {
 	ProjectService projectService;
 	
 	@PostMapping("/add")
-	public ResponseEntity<?> addNewProject(@Valid @RequestBody Project project, BindingResult result){
-		Project savedProject = projectService.addProject(project);
+	public ResponseEntity<?> addNewProject(@Valid @RequestBody Project project, BindingResult result, Principal principal){
+		Project savedProject = projectService.addProject(project, principal.getName());
 		return new ResponseEntity<Project>(savedProject,HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/{projectIdentifier}")
-	public ResponseEntity<?> getProjectByIdentifier(@PathVariable("projectIdentifier")String projectIdentifier){
-		Project p = projectService.getByIdentifier(projectIdentifier);
+	public ResponseEntity<?> getProjectByIdentifier(@PathVariable("projectIdentifier")String projectIdentifier, Principal principal){
+		Project p = projectService.getByIdentifier(projectIdentifier,principal.getName());
 		return new ResponseEntity<Project>(p,HttpStatus.OK);
 	}
 	
 	@GetMapping("/all")
-	public List<Project> getAllProjects(){
-		return projectService.getAllProjects();
+	public List<Project> getAllProjects(Principal principal){
+		return projectService.getAllProjects(principal.getName());
 	}
 	
 	@DeleteMapping("/{projectIdentifier}")
-	public ResponseEntity<?> deleteProjet(@PathVariable("projectIdentifier")String projectIdentifier){
-		projectService.deleteByIdentifier(projectIdentifier);
+	public ResponseEntity<?> deleteProjet(@PathVariable("projectIdentifier")String projectIdentifier, Principal principal){
+		projectService.deleteByIdentifier(projectIdentifier, principal.getName());
 		return new ResponseEntity<>(projectIdentifier+" Deleted Successfully!",HttpStatus.OK);
 	}
 	

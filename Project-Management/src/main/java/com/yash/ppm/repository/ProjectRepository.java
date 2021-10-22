@@ -9,4 +9,6 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 	public Project findByProjectIdentifier(String projectIdentifier);
 
 	public void deleteByProjectIdentifier(String projectIdentifier);
+	
+	Iterable<Project> findAllByProjectLeader(String username);
 }

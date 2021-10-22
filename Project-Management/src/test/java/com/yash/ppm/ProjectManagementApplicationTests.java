@@ -6,12 +6,12 @@ import org.junit.runners.Suite;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-@RunWith(Suite.class)
-@Suite.SuiteClasses({ControllerTest.class,
-				DependencyTest.class,
-				ProjectRepositoryTest.class,
-				ProjectServiceTest.class,
-				ValidationTest.class})
+//@RunWith(Suite.class)
+//@Suite.SuiteClasses({ControllerTest.class,
+//				DependencyTest.class,
+//				ProjectRepositoryTest.class,
+//				ProjectServiceTest.class,
+//				ValidationTest.class})
 class ProjectManagementApplicationTests {
 
 	@Test

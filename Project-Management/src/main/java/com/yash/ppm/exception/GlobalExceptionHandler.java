@@ -52,7 +52,7 @@ public class GlobalExceptionHandler {
 	
 	@ExceptionHandler(DataIntegrityViolationException.class)
 	public ResponseEntity<String> handleDataIntegrityException(DataIntegrityViolationException ex){
-		return new ResponseEntity<>("Project Identifier must be unique",HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>("Project Identifier/User Name must be unique",HttpStatus.BAD_REQUEST);
 	}
 	
 	@ExceptionHandler(NoSuchElementException.class)
@@ -73,5 +73,10 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
 	public ResponseEntity<?> handleMethodNotAllowed(HttpRequestMethodNotSupportedException ex){
 		return new ResponseEntity<>("Please check the Method",HttpStatus.METHOD_NOT_ALLOWED);
+	}
+	
+	@ExceptionHandler(ProjectNotFoundException.class)
+	public ResponseEntity<?> handleNoIdentifier(ProjectNotFoundException ex) {
+		return new ResponseEntity<>(ex.getMessage(),HttpStatus.NOT_FOUND);
 	}
 }

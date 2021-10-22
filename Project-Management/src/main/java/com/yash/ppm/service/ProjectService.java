@@ -6,9 +6,9 @@ import com.yash.ppm.model.Project;
 
 public interface ProjectService {
 	
-	Project addProject(Project project);
-	Project getByIdentifier(String identifier);
-	List<Project> getAllProjects();
-	void deleteByIdentifier(String identifier);
+	Project addProject(Project project, String username);
+	Project getByIdentifier(String identifier, String name);
+	List<Project> getAllProjects(String name);
+	void deleteByIdentifier(String identifier, String name);
 	Project updateProject(Project project);
 }
